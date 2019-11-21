@@ -30,6 +30,16 @@ Just Info
   - Created Database name (jonjelly)
   - Import jonjelly.sql in Database (jonjelly) 
   ```
+  - Jonjelly_report
+  ```
+  - Cut or Copy folder jonjelly_report
+    To xampp/htdocs
+  - Go to jonjelly_report/style/css/vendor
+  - extract file zip vendor in folder vendor
+  - so the folder becomes
+    - css/vendor/bootstrap
+    - css/vendor/fontawesome
+  ```
   
 # Optional
 if you have problems in configuration, please contact me on the LINE Chat, Instagram, Or Email application
