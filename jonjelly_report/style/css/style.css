@@ -1,0 +1,58 @@
+body{
+    font-family: 'Roboto', sans-serif !important;
+}
+/* Start Reset Css CustomerList */
+.BrandTitle{
+    font-weight: 600;
+}
+.BrandDesc{
+    font-style: bold;
+    font-size:18px !important;
+    margin-top: -16px;
+}
+.DescTitleLaprn{
+    margin-top: -10px !important ;
+}
+.BackToHome::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f015  Home ' !important;
+    font-weight: 600;
+    word-spacing: 1px;
+}
+.BackToHome:hover::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: 'Go To Home \f70c' !important;
+}
+.CustDownload::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f02f   Print List Cust' !important;
+    font-weight: 600;
+    word-spacing: 1px;
+}
+.CustDownload:hover::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f1c1   Or Download To PDF' !important;
+}
+/* End Reset Css CustomerList */
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('../font/Roboto/Roboto-Bold.ttf');
+    src: url('../font/Roboto/Roboto-Medium.ttf');
+    src: url('../font/Roboto/Roboto-Italic.ttf');
+}
+::-webkit-input-placeholder {
+    color: #b2bec3 !important;
+    font-style: italic !important;
+ }
+ :-moz-placeholder {
+    color: #b2bec3 !important;
+    font-style: italic !important;  
+ }
+ ::-moz-placeholder {
+    color: #b2bec3 !important;
+    font-style: italic !important;  
+ }
+ :-ms-input-placeholder {  
+    color: #b2bec3 !important;
+    font-style: italic !important; 
+ }
