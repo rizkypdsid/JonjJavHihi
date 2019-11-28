@@ -22,7 +22,7 @@ import jonjelly.controllers.Staf;
  * @author mrpds
  */
 public class ManageKategori extends javax.swing.JFrame {
-private DefaultTableModel model;
+private DefaultTableModel ModelCategory;
     /**
      * Creates new form ManageKategori
      */
@@ -33,10 +33,10 @@ private DefaultTableModel model;
         this.setLocationRelativeTo(this);
         
         //TableMenu
-        model = new DefaultTableModel ( );
-        TableCategory.setModel(model);
-        model.addColumn("ID");
-        model.addColumn("NAME");
+        ModelCategory = new DefaultTableModel ( );
+        TableCategory.setModel(ModelCategory);
+        ModelCategory.addColumn("ID");
+        ModelCategory.addColumn("NAME");
         TableCategory.getColumnModel().getColumn(0).setPreferredWidth(1);
         TableCategory.getColumnModel().getColumn(1).setPreferredWidth(150);
         getCategory();
@@ -50,14 +50,15 @@ private DefaultTableModel model;
        if(Character.isDigit(a.getKeyChar())){
            a.consume();
            JOptionPane.showMessageDialog(null, "HARAP MASUKAN HURUF SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+           InputNamaCategory.setText("");
        }
    }
     
    // Ambil Data Category
     public void getCategory(){
      //menghapus isi table TabelUser
-        model.getDataVector().removeAllElements();
-        model.fireTableDataChanged();
+        ModelCategory.getDataVector().removeAllElements();
+        ModelCategory.fireTableDataChanged();
 
         try{
             Statement stat = (Statement) Database.getKoneksi().createStatement();
@@ -68,7 +69,7 @@ private DefaultTableModel model;
                  obj[0] = res.getString("id_kategori");
                  obj[1] = res.getString("nama_kategori");
 
-                 model.addRow(obj);
+                 ModelCategory.addRow(obj);
              }
          }catch(SQLException err){
                 System.out.println("Error Load Data Category");
@@ -359,8 +360,8 @@ private DefaultTableModel model;
     // Input Search Menu
     private void InputSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputSearchKeyReleased
         // TODO add your handling code here:
-        model.getDataVector().removeAllElements();
-        model.fireTableDataChanged();
+        ModelCategory.getDataVector().removeAllElements();
+        ModelCategory.fireTableDataChanged();
 
         try {
             Connection c = Database.getKoneksi();
@@ -375,7 +376,7 @@ private DefaultTableModel model;
                 SrchMenu[0] = r.getString("id_kategori");
                 SrchMenu[1] = r.getString("nama_kategori");
                 
-                model.addRow(SrchMenu);
+                ModelCategory.addRow(SrchMenu);
             }
             r.close();
             s.close();
@@ -435,11 +436,11 @@ private DefaultTableModel model;
         if (i == -1) {
             return;
         }
-        String idmenu = (String) model.getValueAt(i, 0);
+        String idmenu = (String) ModelCategory.getValueAt(i, 0);
         InputIdCategory.setText(idmenu);
         InputIdCategory.setEnabled(false);
 
-        String namamenu = (String) model.getValueAt(i, 1);
+        String namamenu = (String) ModelCategory.getValueAt(i, 1);
         InputNamaCategory.setText(namamenu);
         
         InputSearch.setText("please input your category.....");
@@ -462,7 +463,7 @@ private DefaultTableModel model;
                 if (i == -1) {
                     return;
                 }
-                String idmenu = (String) model.getValueAt(i, 0);
+                String idmenu = (String) ModelCategory.getValueAt(i, 0);
                 InputIdCategory.setText(idmenu);
                 try {
                     Connection c = Database.getKoneksi();
