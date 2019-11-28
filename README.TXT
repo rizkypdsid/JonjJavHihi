@@ -1,32 +1,52 @@
-========================
-BUILD OUTPUT DESCRIPTION
-========================
+# [JonjJavHihi](https://github.com/rizkypdsid/JonJelly_app/)
+Software management Cashier JonJelly
 
-When you build an Java application project that has a main class, the IDE
-automatically copies all of the JAR
-files on the projects classpath to your projects dist/lib folder. The IDE
-also adds each of the JAR files to the Class-Path element in the application
-JAR files manifest file (MANIFEST.MF).
+[![JonJelly](https://i.ibb.co/GnSZwkp/icon.png)](https://github.com/rizkypdsid/JonJelly_app)
 
-To run the project from the command line, go to the dist folder and
-type the following:
 
-java -jar "JonJavHihi.jar" 
+### Release version : 1.5
+  ```
+  Cashier Software management, Desktop Version
+  ```
 
-To distribute this project, zip up the dist folder (including the lib folder)
-and distribute the ZIP file.
 
-Notes:
+Just Info   
+=====================
+  ``` 
+  Netbeans Info
+  =====================
+  This Aplication build in java netbeans v.8.0.2 if a aplication not support
+  in your version java netbeans, optional install java netbeans v.8.0.2
+  and requirements use JDK version jdk-8u221.
 
-* If two JAR files on the project classpath have the same name, only the first
-JAR file is copied to the lib folder.
-* Only JAR files are copied to the lib folder.
-If the classpath contains other types of files or folders, these files (folders)
-are not copied.
-* If a library on the projects classpath also has a Class-Path element
-specified in the manifest,the content of the Class-Path element has to be on
-the projects runtime path.
-* To set a main class in a standard Java project, right-click the project node
-in the Projects window and choose Properties. Then click Run and enter the
-class name in the Main Class field. Alternatively, you can manually type the
-class name in the manifest Main-Class element.
+  Xampp Info
+  =====================
+  I use the xampp version 3.2.4 & php version 7.3.
+  ```
+  
+# Configure
+  - Database
+  ``` 
+  - Created Database name (jonjelly)
+  - Import jonjelly.sql in Database (jonjelly) 
+  ```
+  - Jonjelly_report
+  ```
+  - Cut or Copy folder jonjelly_report
+    To xampp/htdocs
+  - Go to jonjelly_report/style/css/vendor
+  - extract file zip vendor in folder vendor
+  - so the folder becomes
+    - css/vendor/bootstrap
+    - css/vendor/fontawesome
+  ```
+  
+# Optional
+if you have problems in configuration, please contact me on the LINE Chat, Instagram, Or Email application
+  - Contact
+  ```
+  - Line Id   : mr.rpds
+  - Instagram : rizkypds.id
+  - Email     : hallomrpds@gmail.com
+  ```
+  
