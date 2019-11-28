@@ -22,9 +22,9 @@ import jonjelly.controllers.Staf;
  * @author mrpds
  */
 public class ManageItemMenu extends javax.swing.JFrame {
-private DefaultTableModel model;
+private DefaultTableModel ModelMenu;
     /**
-     * Creates new form MenuKaryawan
+     * Creates new form ManageItemMenu
      */
     public ManageItemMenu() {
         initComponents();
@@ -33,14 +33,14 @@ private DefaultTableModel model;
         this.setLocationRelativeTo(this);
         
         //TableMenu
-        model = new DefaultTableModel ( );
-        TableMenu.setModel(model);
-        model.addColumn("ID_MNU");
-        model.addColumn("NAMA");
-        model.addColumn("HARGA");
-        model.addColumn("ID_KTG");
-        model.addColumn("KATEGORI");
-        model.addColumn("STOK");
+        ModelMenu = new DefaultTableModel ( );
+        TableMenu.setModel(ModelMenu);
+        ModelMenu.addColumn("ID_MNU");
+        ModelMenu.addColumn("NAMA");
+        ModelMenu.addColumn("HARGA");
+        ModelMenu.addColumn("ID_KTG");
+        ModelMenu.addColumn("KATEGORI");
+        ModelMenu.addColumn("STOK");
         TableMenu.getColumnModel().getColumn(0).setPreferredWidth(1);
         TableMenu.getColumnModel().getColumn(1).setPreferredWidth(150);
         TableMenu.getColumnModel().getColumn(2).setPreferredWidth(55);
@@ -59,12 +59,15 @@ private DefaultTableModel model;
        if(Character.isAlphabetic(a.getKeyChar())){
            a.consume();
            JOptionPane.showMessageDialog(null, "HARAP MASUKAN ANGKA SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+           InputHargaMenu.setText("");
+           InputStokMenu.setText("");
        }
    }
     public void FilterHuruf(KeyEvent a){
        if(Character.isDigit(a.getKeyChar())){
            a.consume();
            JOptionPane.showMessageDialog(null, "HARAP MASUKAN HURUF SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+           InputNamaMenu.setText("");
        }
    }
     
@@ -118,8 +121,8 @@ private DefaultTableModel model;
    
    // Ambil Data menu
     public void getListMenu( ){
-        model.getDataVector( ).removeAllElements( );
-        model.fireTableDataChanged( );
+        ModelMenu.getDataVector( ).removeAllElements( );
+        ModelMenu.fireTableDataChanged( );
 
         try{
               Statement stat = (Statement) Database.getKoneksi( ).createStatement( );
@@ -134,7 +137,7 @@ private DefaultTableModel model;
                    obj[3] = res.getString("id_kategori");
                    obj[4] = res.getString("nama_kategori");
                    obj[5] = res.getString("stok_menu");
-                   model.addRow(obj);
+                   ModelMenu.addRow(obj);
                }
          }catch(SQLException err){
                 System.out.println("Error Load Data Daftar Menu");
@@ -202,7 +205,7 @@ private DefaultTableModel model;
 
         Lcategory.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         Lcategory.setForeground(new java.awt.Color(190, 190, 190));
-        Lcategory.setText("CATEGORY");
+        Lcategory.setText("ID CATEGORY");
 
         Lharga.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         Lharga.setForeground(new java.awt.Color(190, 190, 190));
@@ -486,8 +489,8 @@ private DefaultTableModel model;
     // Input Search Menu
     private void InputSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputSearchKeyReleased
         // TODO add your handling code here:
-        model.getDataVector().removeAllElements();
-        model.fireTableDataChanged();
+        ModelMenu.getDataVector().removeAllElements();
+        ModelMenu.fireTableDataChanged();
 
         try {
             Connection c = Database.getKoneksi();
@@ -509,7 +512,7 @@ private DefaultTableModel model;
                 SrchMenu[3] = r.getString("id_kategori");
                 SrchMenu[4] = r.getString("nama_kategori");
                 SrchMenu[5] = r.getString("stok_menu");
-                model.addRow(SrchMenu);
+                ModelMenu.addRow(SrchMenu);
             }
             r.close();
             s.close();
@@ -589,20 +592,20 @@ private DefaultTableModel model;
         if (i == -1) {
             return;
         }
-        String idmenu = (String) model.getValueAt(i, 0);
+        String idmenu = (String) ModelMenu.getValueAt(i, 0);
         InputIdMenu.setText(idmenu);
         InputIdMenu.setEnabled(false);
 
-        String namamenu = (String) model.getValueAt(i, 1);
+        String namamenu = (String) ModelMenu.getValueAt(i, 1);
         InputNamaMenu.setText(namamenu);
         
-        String hargamenu = (String) model.getValueAt(i, 2);
+        String hargamenu = (String) ModelMenu.getValueAt(i, 2);
         InputHargaMenu.setText(hargamenu);
         
-        String categori = (String) model.getValueAt(i, 3);
+        String categori = (String) ModelMenu.getValueAt(i, 3);
         CategoryCombo.setSelectedItem(categori);
         
-        String stokmenu = (String) model.getValueAt(i, 5);
+        String stokmenu = (String) ModelMenu.getValueAt(i, 5);
         InputStokMenu.setText(stokmenu);
         
         BtnTambah.setEnabled(false);
@@ -626,7 +629,7 @@ private DefaultTableModel model;
                 if (i == -1) {
                     return;
                 }
-                String idmenu = (String) model.getValueAt(i, 0);
+                String idmenu = (String) ModelMenu.getValueAt(i, 0);
                 InputIdMenu.setText(idmenu);
                 try {
 
