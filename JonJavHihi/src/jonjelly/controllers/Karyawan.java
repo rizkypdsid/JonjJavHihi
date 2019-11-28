@@ -6,6 +6,8 @@
 package jonjelly.controllers;
 
 
+import java.awt.Desktop;
+import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import jonjelly.Logout;
@@ -19,7 +21,7 @@ import jonjelly.view.karyawan.*;
 public class Karyawan extends javax.swing.JFrame {
 
     /**
-     * Creates new form MenuKaryawan
+     * Creates new form Karyawan
      */
     public Karyawan() {
         initComponents();
@@ -179,11 +181,12 @@ public class Karyawan extends javax.swing.JFrame {
     // Menu Button Reports
     private void ReportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportsMouseClicked
         // TODO add your handling code here:
-        System.out.println("Kita pergi ke view Karyawan ShoppingCart Jon!");
-        MenuReports RS=new MenuReports();
-        RS.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setVisible(false);
-        RS.setVisible(true);
+        System.out.println("Kita pergi ke Localhost Report Jon!");
+        try{
+            Desktop.getDesktop().browse(new URL("http://localhost/jonjelly_report/Report.php").toURI());
+            } catch (Exception e){
+                System.out.println(e);
+            }
         
     }//GEN-LAST:event_ReportsMouseClicked
 
@@ -193,13 +196,11 @@ public class Karyawan extends javax.swing.JFrame {
         System.out.println("Running System Shutdown Jon!");
         int res = JOptionPane.showConfirmDialog(null, "Do You want to Shutdown?", "Shutdown", JOptionPane.YES_NO_OPTION);
         switch (res) {
-            //jika yes maka keluar dari system aplikasi
             case JOptionPane.YES_OPTION:
             System.out.println("Shutdown System JonJelly!");
             JOptionPane.showMessageDialog(null, "Thank You!","Succes Shutdown", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
             break;
-            //jika tidak maka keluar dari system aplikasi
             case JOptionPane.NO_OPTION:
             System.out.println("Canceled Shutdown System JonJelly!");
             JOptionPane.showMessageDialog(null, "Shutdown is Canceled!","Cancel Shutdown", JOptionPane.INFORMATION_MESSAGE);
@@ -221,7 +222,6 @@ public class Karyawan extends javax.swing.JFrame {
             this.setVisible(false);
             LGT.setVisible(true);
             break;
-            //jika tidak maka keluar dari system aplikasi
             case JOptionPane.NO_OPTION:
             System.out.println("Canceled Logout JonJelly!");
             JOptionPane.showMessageDialog(null, "Logout is Canceled!","Cancel Logout", JOptionPane.INFORMATION_MESSAGE);
@@ -277,7 +277,6 @@ public class Karyawan extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             Karyawan karyawan=new Karyawan();
