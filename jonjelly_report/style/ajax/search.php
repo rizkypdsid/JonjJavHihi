@@ -50,4 +50,3 @@ $CustList = mysqli_query($connection,
     </div>
 </div>
 <!-- End Content Table Data -->
-        
