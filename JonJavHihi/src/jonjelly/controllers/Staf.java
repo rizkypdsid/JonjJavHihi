@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package jonjelly.controllers;
+import java.awt.Desktop;
+import java.net.URL;
 import jonjelly.view.staf.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,7 +20,7 @@ import jonjelly.Logout;
 public class Staf extends javax.swing.JFrame {
 
     /**
-     * Creates new form MenuKaryawan
+     * Creates new form Staf
      */
     public Staf() {
         initComponents();
@@ -214,11 +216,12 @@ public class Staf extends javax.swing.JFrame {
     // Menu Button Reports
     private void ReportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportsMouseClicked
         // TODO add your handling code here:
-        System.out.println("Kita pergi ke view Staf MenuReports Jon!");
-        MenuReports RS=new MenuReports();
-        RS.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setVisible(false);
-        RS.setVisible(true);
+        System.out.println("Kita pergi ke Localhost Report Jon!");
+        try{
+            Desktop.getDesktop().browse(new URL("http://localhost/jonjelly_report/Report.php").toURI());
+            } catch (Exception e){
+                System.out.println(e);
+            }
     }//GEN-LAST:event_ReportsMouseClicked
 
     // Menu Button User Manage
@@ -237,13 +240,11 @@ public class Staf extends javax.swing.JFrame {
         System.out.println("Running System Shutdown Jon!");
         int res = JOptionPane.showConfirmDialog(null, "Do You want to Shutdown?", "Shutdown", JOptionPane.YES_NO_OPTION);
         switch (res) {
-            //jika yes maka keluar dari system aplikasi
             case JOptionPane.YES_OPTION:
             System.out.println("Shutdown System JonJelly!");
             JOptionPane.showMessageDialog(null, "Thank You!","Succes Shutdown", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
             break;
-            //jika tidak maka keluar dari system aplikasi
             case JOptionPane.NO_OPTION:
             System.out.println("Canceled System JonJelly!");
             JOptionPane.showMessageDialog(null, "Shutdown is Canceled!","Cancel Shutdown", JOptionPane.INFORMATION_MESSAGE);
@@ -257,7 +258,6 @@ public class Staf extends javax.swing.JFrame {
         System.out.println("Running System Logout Jon!");
         int res = JOptionPane.showConfirmDialog(null, "Do You want to Logout?", "Logout", JOptionPane.YES_NO_OPTION);
         switch (res) {
-            //jika yes maka logout
             case JOptionPane.YES_OPTION:
             System.out.println("Logout System JonJelly!");
             JOptionPane.showMessageDialog(null, "Thank You!","Succes Logout", JOptionPane.INFORMATION_MESSAGE);
@@ -266,7 +266,6 @@ public class Staf extends javax.swing.JFrame {
             this.setVisible(false);
             LGT.setVisible(true);
             break;
-            //jika tidak maka keluar dari system aplikasi
             case JOptionPane.NO_OPTION:
             System.out.println("Canceled Logout JonJelly!");
             JOptionPane.showMessageDialog(null, "Logout is Canceled!","Cancel Logout", JOptionPane.INFORMATION_MESSAGE);
@@ -280,7 +279,6 @@ public class Staf extends javax.swing.JFrame {
         System.out.println("Running System Logout Jon!");
         int res = JOptionPane.showConfirmDialog(null, "Do You want to Logout?", "Logout", JOptionPane.YES_NO_OPTION);
         switch (res) {
-            //jika yes maka logout
             case JOptionPane.YES_OPTION:
             System.out.println("Logout System JonJelly!");
             JOptionPane.showMessageDialog(null, "Thank You!","Succes Logout", JOptionPane.INFORMATION_MESSAGE);
@@ -289,7 +287,6 @@ public class Staf extends javax.swing.JFrame {
             this.setVisible(false);
             LGT.setVisible(true);
             break;
-            //jika tidak maka keluar dari system aplikasi
             case JOptionPane.NO_OPTION:
             System.out.println("Canceled Logout JonJelly!");
             JOptionPane.showMessageDialog(null, "Logout is Canceled!","Cancel Logout", JOptionPane.INFORMATION_MESSAGE);
