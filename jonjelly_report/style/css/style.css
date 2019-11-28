@@ -1,7 +1,95 @@
 body{
     font-family: 'Roboto', sans-serif !important;
 }
-/* Start Reset Css CustomerList */
+/* Start Reset Css Index */
+.bgContent{
+    background-color: #0fb9b1 !important;
+    position: absolute;
+    width: 100%;
+    height:100%;
+    margin-top: -27%;
+    bottom: 0;
+    content: '';
+}
+.jumbotron{
+    height: 320px !important;
+    background: url("../../img/jbt-bg.jpg");
+    position: relative;
+    z-index: 1;
+}
+.jumbotron::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgb(63,63,105);
+    background: linear-gradient(180deg, rgba(63,63,105,1) 0%, rgba(77,132,208,0.16850490196078427) 0%, rgba(20,18,18,0.5158438375350141) 53%);
+    bottom: 0;
+    left: 0;
+    opacity: .6;
+    z-index: -1;
+}
+.imgBrand{
+    margin-top: -35px !important;
+    width: 220px; 
+}
+.h1brand{
+    font-family: 'Roboto', sans-serif;
+    font-style: bold;
+    font-weight: 900;
+    font-size: 120px;
+    letter-spacing: 15px;
+    color: #f5f6fa;
+}
+h1 span{
+    font-weight: 400;
+    font-style: normal !important;
+}
+.h2brand{
+    font-family: 'Roboto', sans-serif;
+    font-style: bold;
+    font-weight: 900;
+    font-size: 30px;
+    letter-spacing: 15px;
+    color: #f5f6fa;
+    margin-top: -25px;
+    opacity: .8;
+}
+.hrbrand{
+    border: 5px solid #f5f6fa;
+    border-radius: 5px;
+    color: red;
+    width: 30% !important;
+}
+.CustomerList::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f0c0   Customer List' !important;
+    font-weight: 600;
+    word-spacing: 1px;
+}
+.PrintListIndex::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f02f   Print Report Menu' !important;
+    font-weight: 600;
+    word-spacing: 1px;
+}
+.PrintListIndex:hover::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f1c1   Or Download To PDF' !important;
+}
+.ExportListIndex::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f019   Export Report Menu' !important;
+    font-weight: 600;
+    word-spacing: 1px;
+}
+.ExportListIndex:hover::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f1c3   Or Download To Excel' !important;
+}
+/* End Reset Css Index */
+/* Start Reset Css CustomerList & Report */
 .BrandTitle{
     font-weight: 600;
 }
@@ -23,23 +111,34 @@ body{
     font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
     content: 'Go To Home \f70c' !important;
 }
-.CustDownload::after{
+.PrintList::after{
     font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
-    content: '\f02f   Print List Cust' !important;
+    content: '\f02f   Print' !important;
     font-weight: 600;
     word-spacing: 1px;
 }
-.CustDownload:hover::after{
+.PrintList:hover::after{
     font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
     content: '\f1c1   Or Download To PDF' !important;
 }
-/* End Reset Css CustomerList */
+.ExportList::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f019   Export' !important;
+    font-weight: 600;
+    word-spacing: 1px;
+}
+.ExportList:hover::after{
+    font-family: "Font Awesome 5 Free", 'Roboto', sans-serif;
+    content: '\f1c3   Or Download To Excel' !important;
+}
+/* End Reset Css CustomerList & Report */
 @font-face {
     font-family: 'Roboto', sans-serif;
     src: url('../font/Roboto/Roboto-Bold.ttf');
     src: url('../font/Roboto/Roboto-Medium.ttf');
     src: url('../font/Roboto/Roboto-Italic.ttf');
 }
+/* Start  Input textfield Reset */
 ::-webkit-input-placeholder {
     color: #b2bec3 !important;
     font-style: italic !important;
@@ -56,3 +155,4 @@ body{
     color: #b2bec3 !important;
     font-style: italic !important; 
  }
+ /* End  Input textfield Reset */
