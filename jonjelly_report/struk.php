@@ -2,14 +2,14 @@
 include "config/database.php";
 $id =$_GET["id"];
 
-$invoice = mysqli_query($connection,
+$getInvoiceID = mysqli_query($connection,
                                         "SELECT DISTINCT id_pesanan, nama_cust FROM pesanan WHERE id_pesanan = '$id' ");
-$faktur = mysqli_fetch_array($invoice);
+$invoice = mysqli_fetch_array($getInvoiceID);
 
-$payment = mysqli_query($connection,
+$getPayment = mysqli_query($connection,
                                         "SELECT DISTINCT id_pesanan, total_pembayaran, uang_bayar, kembalian FROM pesanan WHERE id_pesanan = '$id' ");
 
-$ListMenu = mysqli_query($connection, "SELECT * FROM pesanan WHERE id_pesanan = '$id' ");
+$getListMenu = mysqli_query($connection, "SELECT * FROM pesanan WHERE id_pesanan = '$id' ");
 
 
 if (empty($id) ) {
@@ -39,7 +39,7 @@ if (empty($id) ) {
                 <div class="card-header"> 
                     <div class="row">
                         <div class="col-sm font-weight-bold">
-                        Invoice Code : <?= $faktur["id_pesanan"];?>
+                        Invoice Code : <?= $invoice["id_pesanan"];?>
                         </div>
                         <div class="col-sm-auto font-weight-bold">
                             <?php 
@@ -66,7 +66,7 @@ if (empty($id) ) {
                         </div>
                         <div class="col-sm">
                             <h5 class=" text-center mt-2 text-black-50">
-                                Thank You! <strong class="text-body text-capitalize"><?= $faktur["nama_cust"];?></strong> Have a nice day!
+                                Thank You! <strong class="text-body text-capitalize"><?= $invoice["nama_cust"];?></strong> Have a nice day!
                             </h5>
                         </div>
                     </div>
@@ -84,9 +84,9 @@ if (empty($id) ) {
                             </thead>
                             <tbody>
                                 <?php
-                                    if( mysqli_num_rows($ListMenu)>0 ) { 
+                                    if( mysqli_num_rows($getListMenu)>0 ) { 
                                         $no = 1;
-                                        while( $data = mysqli_fetch_array($ListMenu) ){
+                                        while( $data = mysqli_fetch_array($getListMenu) ){
                                             $harga=number_format($data['harga_menu'],0,",",".");
                                 ?>
                                 <tr>
@@ -109,7 +109,7 @@ if (empty($id) ) {
                             <table class="table table-clear">
                                 <tbody>
                                     <?php
-                                        while($data = mysqli_fetch_array($payment)){
+                                        while($data = mysqli_fetch_array($getPayment)){
                                         $subtotal=number_format($data['total_pembayaran'],0,",",".");
                                         $cash=number_format($data['uang_bayar'],0,",",".");
                                         $change=number_format($data['kembalian'],0,",",".");
@@ -142,11 +142,11 @@ if (empty($id) ) {
     </div>
 </div>
 <script type = "text/javascript">
+    setTimeout('Redirect()', 1000);
     window.print();
     function Redirect() {
         window.location = "CustomerList.php";
     }            
-    setTimeout('Redirect()', 1000);
 </script>
 </body>
 </html>
