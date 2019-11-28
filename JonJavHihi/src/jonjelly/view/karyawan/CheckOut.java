@@ -24,55 +24,52 @@ import jonjelly.controllers.Karyawan;
  * @author mrpds
  */
 public class CheckOut extends javax.swing.JFrame {
-    private DefaultTableModel TblLaporan;
-    private DefaultTableModel tmp;
+    private DefaultTableModel ModelPesanan;
+    private DefaultTableModel ModelTmp;
     
     public long total;
     public long bayar;
     public long kembali;
-
-
 
     /**
      * Creates new form MenuKaryawan
      */
     public CheckOut() {
         initComponents();
-        setTitle("Checkout Shopping");
-        System.out.println("Selamat Datang Di Halaman Checkout Shopping Cart Karyawan Jon!");
+        setTitle("Shopping Cart");
+        System.out.println("Selamat Datang Di Halaman ShoppingCart Staf Jon!");
         this.setLocationRelativeTo(this);
         
-        
-        // Table TMP
-        TblLaporan = new DefaultTableModel();
-        TblLaporanPenjualan.setModel(TblLaporan);
-        TblLaporan.addColumn("ID");
-        TblLaporan.addColumn("NAMA");
-        TblLaporan.addColumn("MENU");
-        TblLaporan.addColumn("HARGA");
-        TblLaporan.addColumn("JUMLAH");
-        TblLaporan.addColumn("TOTAL PEMBAYARAN");
-        TblLaporan.addColumn("BAYAR");
-        TblLaporan.addColumn("KEMBALIAN");
-        TblLaporanPenjualan.getColumnModel().getColumn(0).setPreferredWidth(1);
-        TblLaporanPenjualan.getColumnModel().getColumn(1).setPreferredWidth(80);
-        TblLaporanPenjualan.getColumnModel().getColumn(2).setPreferredWidth(100);
-        TblLaporanPenjualan.getColumnModel().getColumn(3).setPreferredWidth(50);
-        TblLaporanPenjualan.getColumnModel().getColumn(4).setPreferredWidth(10);
-        TblLaporanPenjualan.getColumnModel().getColumn(5).setPreferredWidth(50);
-        TblLaporanPenjualan.getColumnModel().getColumn(6).setPreferredWidth(50);
-        TblLaporanPenjualan.getColumnModel().getColumn(7).setPreferredWidth(50);
+        // Table pesanan
+        ModelPesanan = new DefaultTableModel();
+        TblPesanan.setModel(ModelPesanan);
+        ModelPesanan.addColumn("ID");
+        ModelPesanan.addColumn("NAMA");
+        ModelPesanan.addColumn("MENU");
+        ModelPesanan.addColumn("HARGA");
+        ModelPesanan.addColumn("JUMLAH");
+        ModelPesanan.addColumn("TOTAL PEMBAYARAN");
+        ModelPesanan.addColumn("BAYAR");
+        ModelPesanan.addColumn("KEMBALIAN");
+        TblPesanan.getColumnModel().getColumn(0).setPreferredWidth(1);
+        TblPesanan.getColumnModel().getColumn(1).setPreferredWidth(80);
+        TblPesanan.getColumnModel().getColumn(2).setPreferredWidth(100);
+        TblPesanan.getColumnModel().getColumn(3).setPreferredWidth(50);
+        TblPesanan.getColumnModel().getColumn(4).setPreferredWidth(10);
+        TblPesanan.getColumnModel().getColumn(5).setPreferredWidth(50);
+        TblPesanan.getColumnModel().getColumn(6).setPreferredWidth(50);
+        TblPesanan.getColumnModel().getColumn(7).setPreferredWidth(50);
         getLaporanPesanan();
         
-        // Table TMP
-        tmp = new DefaultTableModel();
-        TablePesananSementara.setModel(tmp);
-        tmp.addColumn("ID TMP");
-        tmp.addColumn("ID MENU ");
-        tmp.addColumn("MENU");
-        tmp.addColumn("HARGA");
-        tmp.addColumn("JUMLAH");
-        tmp.addColumn("TOTAL");
+        // Table tmp_pesana
+        ModelTmp = new DefaultTableModel();
+        TablePesananSementara.setModel(ModelTmp);
+        ModelTmp.addColumn("ID TMP");
+        ModelTmp.addColumn("ID MENU ");
+        ModelTmp.addColumn("MENU");
+        ModelTmp.addColumn("HARGA");
+        ModelTmp.addColumn("JUMLAH");
+        ModelTmp.addColumn("TOTAL");
         TablePesananSementara.getColumnModel().getColumn(0).setPreferredWidth(1);
         TablePesananSementara.getColumnModel().getColumn(1).setPreferredWidth(1);
         TablePesananSementara.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -86,58 +83,64 @@ public class CheckOut extends javax.swing.JFrame {
         InputUangBayar.setEnabled(false);
         BtnCount.setEnabled(false);
         BtnPayOrders.setEnabled(false);
+        InputTotalBeli.setEnabled(false);
+        InputKembalian.setEnabled(false);
         
     }
     
     public void FilterAngka(KeyEvent a){
        if(Character.isAlphabetic(a.getKeyChar())){
-           a.consume();
-           JOptionPane.showMessageDialog(null, "HARAP MASUKAN ANGKA SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+            a.consume();
+            JOptionPane.showMessageDialog(null, "HARAP MASUKAN ANGKA SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+            InputUangBayar.setText("");
        }
    }
     public void FilterHuruf(KeyEvent a){
        if(Character.isDigit(a.getKeyChar())){
-           a.consume();
-           JOptionPane.showMessageDialog(null, "HARAP MASUKAN HURUF SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+            a.consume();
+            JOptionPane.showMessageDialog(null, "HARAP MASUKAN HURUF SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+            InputNamaPemesan.setText("");
        }
    }
 
 
     // Ambil data table pesanan
-    public void getLaporanPesanan(){
-        TblLaporan.getDataVector( ).removeAllElements( );
-        TblLaporan.fireTableDataChanged( );
+     public void getLaporanPesanan(){
+        ModelPesanan.getDataVector( ).removeAllElements( );
+        ModelPesanan.fireTableDataChanged( );
 
         try{
-              Statement stat = (Statement) Database.getKoneksi( ).createStatement( );
-              String sql        = "SELECT * FROM pesanan ORDER BY id_pesanan DESC";
-              ResultSet res   = stat.executeQuery(sql);
-              while(res.next ()){
-                   Object[ ] obj = new Object[9];
-                   obj[0] = res.getString("id_pesanan");              
-                   obj[1] = res.getString("nama_cust");
-                   obj[2] = res.getString("nama_menu");
-                   obj[3] = res.getString("harga_menu");
-                   obj[4] = res.getString("jumlah_beli");
-                   obj[5] = res.getString("total_pembayaran");
-                   obj[6] = res.getString("uang_bayar");
-                   obj[7] = res.getString("kembalian");
-                   TblLaporan.addRow(obj);
-               }
+            Statement stat = (Statement) Database.getKoneksi( ).createStatement( );
+            String sql        = "SELECT * FROM pesanan ORDER BY id_pesanan DESC";
+            ResultSet res   = stat.executeQuery(sql);
+
+            while(res.next ()){
+                 Object[ ] obj = new Object[9];
+                 obj[0] = res.getString("id_pesanan");              
+                 obj[1] = res.getString("nama_cust");
+                 obj[2] = res.getString("nama_menu");
+                 obj[3] = res.getString("harga_menu");
+                 obj[4] = res.getString("jumlah_beli");
+                 obj[5] = res.getString("total_pembayaran");
+                 obj[6] = res.getString("uang_bayar");
+                 obj[7] = res.getString("kembalian");
+                 ModelPesanan.addRow(obj);
+             }
          }catch(SQLException err){
                 System.out.println("Error Load Data Table Pesanan");
          }
     }
     
-    // Ambil Data TMP
+    // Ambil Data table TMP
     public void getTmpPesanan(){
-        tmp.getDataVector( ).removeAllElements( );
-        tmp.fireTableDataChanged( );
+        ModelTmp.getDataVector( ).removeAllElements( );
+        ModelTmp.fireTableDataChanged( );
 
         try{
             Statement stat = (Statement) Database.getKoneksi( ).createStatement( );
             String sql        = "SELECT * FROM tmp_pesanan ORDER BY id_tmp ASC";
             ResultSet res   = stat.executeQuery(sql);
+
             while(res.next ()){
                  Object[ ] obj = new Object[9];
                  obj[0] = res.getString("id_tmp");
@@ -146,14 +149,14 @@ public class CheckOut extends javax.swing.JFrame {
                  obj[3] = res.getString("harga_menu");
                  obj[4] = res.getString("jumlah_beli");
                  obj[5] = res.getString("total_harga");
-                 tmp.addRow(obj);
+                 ModelTmp.addRow(obj);
              }
-            }catch(SQLException err){
-                System.out.println("Error Load Data TMP PESANAN");
-            }
+         }catch(SQLException err){
+                System.out.println("Error Load Data TMP Pesana");
+         }
     }
     
-    // Faktur
+    // Faktur pesanan
     private void getFaktur() {
         try {
             Connection c = Database.getKoneksi();
@@ -219,7 +222,7 @@ public class CheckOut extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TablePesananSementara = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        TblLaporanPenjualan = new javax.swing.JTable();
+        TblPesanan = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         LblJumlahBeli1 = new javax.swing.JLabel();
         SearchRelatedCart = new javax.swing.JTextField();
@@ -365,7 +368,7 @@ public class CheckOut extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablePesananSementara);
 
-        TblLaporanPenjualan.setModel(new javax.swing.table.DefaultTableModel(
+        TblPesanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -376,7 +379,7 @@ public class CheckOut extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(TblLaporanPenjualan);
+        jScrollPane3.setViewportView(TblPesanan);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -538,44 +541,48 @@ public class CheckOut extends javax.swing.JFrame {
     private void BtnPayOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPayOrdersActionPerformed
         // TODO add your handling code here:
         if(InputUangBayar.getText().equals("") ||InputKembalian.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "LENGKAPI DATA !", "JonJelly", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "LENGKAPI DATA !", "JONJELLY", JOptionPane.WARNING_MESSAGE);
         }else{
             String a = InputKembalian.getText();
             int ab = Integer.parseInt(String.valueOf(InputKembalian.getText()));
             if(ab < 0){
-                JOptionPane.showMessageDialog(null, "Uang anda kurang", "JonJelly", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Uang anda kurang", "NOTICE", JOptionPane.WARNING_MESSAGE);
                 InputUangBayar.setText("");
                 InputKembalian.setText("");
             }else{
                 try {
-                    Connection c = Database.getKoneksi();
-                    Statement s = c.createStatement();
-                    String sql = "SELECT * FROM tmp_pesanan";
-                    ResultSet r = s.executeQuery(sql);
-                    while (r.next()) {
-                        long millis=System.currentTimeMillis();
-                        java.sql.Date date=new java.sql.Date(millis);
-                        System.out.println(date); 
-                        String tgl = date.toString();
-                        String sqla = "INSERT INTO pesanan VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                         
-                        PreparedStatement p = c.prepareStatement(sqla);
-                        p.setString(1, InputIdPesanan.getText());
-                        p.setString(2, r.getString("id_menu"));
-                        p.setString(3, InputNamaPemesan.getText());
-                        p.setString(4, r.getString("nama_menu"));
-                        p.setString(5, r.getString("harga_menu"));
-                        p.setString(6, r.getString("jumlah_beli"));
-                        p.setString(7, InputTotalBeli.getText());
-                        p.setString(8, InputUangBayar.getText());
-                        p.setString(9, InputKembalian.getText());
-                        p.setString(10, tgl);
-                        p.executeUpdate();
-                        p.close();
+                    try {
+                        Connection c = Database.getKoneksi();
+                        Statement s = c.createStatement();
+                        String sql = "SELECT * FROM tmp_pesanan";
+                        ResultSet r = s.executeQuery(sql);
+                        while (r.next()) {
+                            long millis=System.currentTimeMillis();
+                            java.sql.Date date=new java.sql.Date(millis);
+                            System.out.println(date); 
+                            String tgl = date.toString();
+                            String sqla = "INSERT INTO pesanan VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                            PreparedStatement p = c.prepareStatement(sqla);
+                            p.setString(1, InputIdPesanan.getText());
+                            p.setString(2, r.getString("id_menu"));
+                            p.setString(3, InputNamaPemesan.getText());
+                            p.setString(4, r.getString("nama_menu"));
+                            p.setString(5, r.getString("harga_menu"));
+                            p.setString(6, r.getString("jumlah_beli"));
+                            p.setString(7, InputTotalBeli.getText());
+                            p.setString(8, InputUangBayar.getText());
+                            p.setString(9, InputKembalian.getText());
+                            p.setString(10, tgl);
+                            p.executeUpdate();
+                            p.close();
+                        }
+                        r.close();
+                        s.close();
+                    } catch (SQLException e) {
+                        System.out.println("Terjadi Error Insert Ke table pesanan");
                     }
-                    r.close();
-                    s.close();
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     System.out.println("Terjadi Error Insert Ke table pesanan");
                 }finally{
                     try {
@@ -594,11 +601,11 @@ public class CheckOut extends javax.swing.JFrame {
                         InputTotalBeli.setText("");
                         BtnPrint.setEnabled(true);
                     } catch (Exception e) {
-                            JOptionPane.showMessageDialog(this, e.getMessage());
-                        }
+                        JOptionPane.showMessageDialog(this, e.getMessage());
                     }
                 }
             }
+         }
     }//GEN-LAST:event_BtnPayOrdersActionPerformed
 
     // Btn Count
@@ -607,7 +614,6 @@ public class CheckOut extends javax.swing.JFrame {
         try {
             Connection c = Database.getKoneksi();
             Statement s = c.createStatement();
-
             String sql = "SELECT SUM(`total_harga`) AS total FROM tmp_pesanan";
             ResultSet r = s.executeQuery(sql);
             
@@ -618,7 +624,7 @@ public class CheckOut extends javax.swing.JFrame {
             r.close();
             s.close();
         } catch (SQLException e) {
-            System.out.println("Terjadi Error Menghitung Total");
+            System.out.println("Terjadi Error menghitung total");
         }
         
     }//GEN-LAST:event_BtnCountActionPerformed
@@ -626,7 +632,7 @@ public class CheckOut extends javax.swing.JFrame {
     // Btn Add Menu
     private void BtnAddMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddMenuActionPerformed
         // TODO add your handling code here:
-        System.out.println("Kita pergi ke ShoppingCart staf Jon!");
+        System.out.println("Kita Balik Ke view Staf ShoppingCart Jon!");
         ShoppingCart SC=new ShoppingCart();
         SC.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(false);
@@ -644,7 +650,7 @@ public class CheckOut extends javax.swing.JFrame {
                 if (i == -1){
                     return;
                 }
-                String id = (String) tmp.getValueAt(i, 0);
+                String id = (String) ModelTmp.getValueAt(i, 0);
                 String sql ="DELETE FROM tmp_pesanan WHERE id_tmp='"+id+"'";
                 java.sql.Connection conn=(Connection)Database.getKoneksi();
                 java.sql.PreparedStatement pst=conn.prepareStatement(sql);
@@ -658,9 +664,10 @@ public class CheckOut extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TablePesananSementaraMouseClicked
 
-    // Btn Print
+    // Btn print
     private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
         // TODO add your handling code here:
+        System.out.println("Kita pergi ke localhost customerlist Jon!");
         try{
             Desktop.getDesktop().browse(new URL("http://localhost/jonjelly_report/CustomerList.php").toURI());
             } catch (Exception e){
@@ -668,32 +675,31 @@ public class CheckOut extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_BtnPrintActionPerformed
 
-    // Input Search
+    // Textfield search
     private void SearchRelatedCartKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchRelatedCartKeyReleased
         // TODO add your handling code here:
-        TblLaporan.getDataVector().removeAllElements();
-        TblLaporan.fireTableDataChanged();
+        ModelPesanan.getDataVector().removeAllElements();
+        ModelPesanan.fireTableDataChanged();
 
         try {
             Connection c = Database.getKoneksi();
             Statement s = c.createStatement();
-
             String srch = "SELECT * FROM pesanan "
                         + "WHERE id_pesanan LIKE '%" + SearchRelatedCart.getText() 
                         + "%' OR nama_cust LIKE '%" + SearchRelatedCart.getText() + "%'";
             ResultSet r = s.executeQuery(srch);
 
             while (r.next()) {
-                Object[ ] SrchMenu = new Object[9];
-                SrchMenu[0] = r.getString("id_pesanan");              
-                SrchMenu[1] = r.getString("nama_cust");
-                SrchMenu[2] = r.getString("nama_menu");
-                SrchMenu[3] = r.getString("harga_menu");
-                SrchMenu[4] = r.getString("jumlah_beli");
-                SrchMenu[5] = r.getString("total_pembayaran");
-                SrchMenu[6] = r.getString("uang_bayar");
-                SrchMenu[7] = r.getString("kembalian");
-                TblLaporan.addRow(SrchMenu);
+                Object[ ] SrchPesanan = new Object[9];
+                SrchPesanan[0] = r.getString("id_pesanan");              
+                SrchPesanan[1] = r.getString("nama_cust");
+                SrchPesanan[2] = r.getString("nama_menu");
+                SrchPesanan[3] = r.getString("harga_menu");
+                SrchPesanan[4] = r.getString("jumlah_beli");
+                SrchPesanan[5] = r.getString("total_pembayaran");
+                SrchPesanan[6] = r.getString("uang_bayar");
+                SrchPesanan[7] = r.getString("kembalian");
+                ModelPesanan.addRow(SrchPesanan);
             }
             r.close();
             s.close();
@@ -702,26 +708,27 @@ public class CheckOut extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SearchRelatedCartKeyReleased
 
-    // Input Search Replace text
+    // Textfield replace search text
     private void SearchRelatedCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchRelatedCartMouseClicked
         // TODO add your handling code here:
         SearchRelatedCart.setText("");
     }//GEN-LAST:event_SearchRelatedCartMouseClicked
 
-    // Input Search Replace text
+    // Textfield replace search text
     private void SearchRelatedCartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchRelatedCartMouseEntered
         // TODO add your handling code here:
         SearchRelatedCart.setText("");
     }//GEN-LAST:event_SearchRelatedCartMouseEntered
 
-    // Input nama pemesan
+    // Textfield input nama customer
     private void InputNamaPemesanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputNamaPemesanKeyReleased
         // TODO add your handling code here:
         FilterHuruf(evt);
         BtnCount.setEnabled(true);
+        InputTotalBeli.setEnabled(true);
     }//GEN-LAST:event_InputNamaPemesanKeyReleased
 
-    // input uang bayar
+    // Textfield input uang bayar customer
     private void InputUangBayarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputUangBayarKeyReleased
         // TODO add your handling code here:
         FilterAngka(evt);
@@ -730,6 +737,7 @@ public class CheckOut extends javax.swing.JFrame {
         kembali = bayar - total;
         InputKembalian.setText(Long.toString(kembali));
         BtnPayOrders.setEnabled(true);
+        InputKembalian.setEnabled(true);
     }//GEN-LAST:event_InputUangBayarKeyReleased
 
     /**
@@ -789,7 +797,7 @@ public class CheckOut extends javax.swing.JFrame {
     private javax.swing.JTextField SearchRelatedCart;
     private javax.swing.JTable TablePesananSementara;
     private javax.swing.JLabel TagPage;
-    private javax.swing.JTable TblLaporanPenjualan;
+    private javax.swing.JTable TblPesanan;
     private javax.swing.JLabel icon_header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
