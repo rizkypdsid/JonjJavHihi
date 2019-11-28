@@ -22,15 +22,15 @@ import jonjelly.controllers.Staf;
  * @author mrpds
  */
 public class ShoppingCart extends javax.swing.JFrame {
-private DefaultTableModel model;
-private DefaultTableModel tmp;
+private DefaultTableModel ModelMenu;
+private DefaultTableModel ModelTmp;
 
     public long total;
     public long bayar;
     public long kembali;
     
     /**
-     * Creates new form MenuKaryawan
+     * Creates new form ShoppingCart
      */
     public ShoppingCart() {
         initComponents();
@@ -39,13 +39,13 @@ private DefaultTableModel tmp;
         this.setLocationRelativeTo(this);
         
         //Table Menu
-        model = new DefaultTableModel();
-        TableMenu.setModel(model);
-        model.addColumn("ID");
-        model.addColumn("NAMA");
-        model.addColumn("HARGA");
-        model.addColumn("KATEGORI");
-        model.addColumn("STOK");
+        ModelMenu = new DefaultTableModel();
+        TableMenu.setModel(ModelMenu);
+        ModelMenu.addColumn("ID");
+        ModelMenu.addColumn("NAMA");
+        ModelMenu.addColumn("HARGA");
+        ModelMenu.addColumn("KATEGORI");
+        ModelMenu.addColumn("STOK");
         TableMenu.getColumnModel().getColumn(0).setPreferredWidth(1);
         TableMenu.getColumnModel().getColumn(1).setPreferredWidth(150);
         TableMenu.getColumnModel().getColumn(2).setPreferredWidth(55);
@@ -53,14 +53,14 @@ private DefaultTableModel tmp;
         getListMenu(); 
         
         // Table TMP
-        tmp = new DefaultTableModel();
-        TablePesananSementara.setModel(tmp);
-        tmp.addColumn("ID TMP");
-        tmp.addColumn("ID MENU ");
-        tmp.addColumn("MENU");
-        tmp.addColumn("HARGA");
-        tmp.addColumn("JUMLAH");
-        tmp.addColumn("TOTAL");
+        ModelTmp = new DefaultTableModel();
+        TablePesananSementara.setModel(ModelTmp);
+        ModelTmp.addColumn("ID TMP");
+        ModelTmp.addColumn("ID MENU ");
+        ModelTmp.addColumn("MENU");
+        ModelTmp.addColumn("HARGA");
+        ModelTmp.addColumn("JUMLAH");
+        ModelTmp.addColumn("TOTAL");
         TablePesananSementara.getColumnModel().getColumn(0).setPreferredWidth(1);
         TablePesananSementara.getColumnModel().getColumn(1).setPreferredWidth(1);
         TablePesananSementara.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -80,13 +80,14 @@ private DefaultTableModel tmp;
        if(Character.isAlphabetic(a.getKeyChar())){
            a.consume();
            JOptionPane.showMessageDialog(null, "HARAP MASUKAN ANGKA SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+           InputJumlahBeli.setText("");
        }
    }
     
     // Ambil Data menu
     public void getListMenu(){
-        model.getDataVector( ).removeAllElements( );
-        model.fireTableDataChanged( );
+        ModelMenu.getDataVector( ).removeAllElements( );
+        ModelMenu.fireTableDataChanged( );
 
         try{
             Statement stat = (Statement) Database.getKoneksi( ).createStatement( );
@@ -101,7 +102,7 @@ private DefaultTableModel tmp;
                  obj[2] = res.getString("harga_menu");
                  obj[3] = res.getString("nama_kategori");
                  obj[4] = res.getString("stok_menu");
-                 model.addRow(obj);
+                 ModelMenu.addRow(obj);
              }
          }catch(SQLException err){
                 System.out.println("Error Load Data Daftar Menu");
@@ -110,8 +111,8 @@ private DefaultTableModel tmp;
     
     // Ambil Data TMP
     public void getTmpPesanan(){
-        tmp.getDataVector( ).removeAllElements( );
-        tmp.fireTableDataChanged( );
+        ModelTmp.getDataVector( ).removeAllElements( );
+        ModelTmp.fireTableDataChanged( );
 
         try{
             Statement stat = (Statement) Database.getKoneksi( ).createStatement( );
@@ -126,7 +127,7 @@ private DefaultTableModel tmp;
                  obj[3] = res.getString("harga_menu");
                  obj[4] = res.getString("jumlah_beli");
                  obj[5] = res.getString("total_harga");
-                 tmp.addRow(obj);
+                 ModelTmp.addRow(obj);
              }
          }catch(SQLException err){
                 System.out.println("Error Load Data tmp_pesanan");
@@ -600,8 +601,8 @@ private DefaultTableModel tmp;
     // Input Search
     private void InputSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputSearchKeyReleased
         // TODO add your handling code here:
-        model.getDataVector().removeAllElements();
-        model.fireTableDataChanged();
+        ModelMenu.getDataVector().removeAllElements();
+        ModelMenu.fireTableDataChanged();
 
         try {
             Connection c = Database.getKoneksi();
@@ -622,7 +623,7 @@ private DefaultTableModel tmp;
                 SrchMenu[2] = r.getString("harga_menu");
                 SrchMenu[3] = r.getString("nama_kategori");
                 SrchMenu[4] = r.getString("stok_menu");
-                model.addRow(SrchMenu);
+                ModelMenu.addRow(SrchMenu);
             }
             r.close();
             s.close();
@@ -676,27 +677,27 @@ private DefaultTableModel tmp;
         if (i == -1) {
             return;
         }
-        String idtmp = (String) tmp.getValueAt(i, 0);
+        String idtmp = (String) ModelTmp.getValueAt(i, 0);
         InputIdTmp.setText(idtmp);
         InputIdTmp.setEnabled(false);
         
-        String idmenu = (String) tmp.getValueAt(i, 1);
+        String idmenu = (String) ModelTmp.getValueAt(i, 1);
         InputIdMenu.setText(idmenu);
         InputIdMenu.setEnabled(false);
         
-        String menu = (String) tmp.getValueAt(i, 2);
+        String menu = (String) ModelTmp.getValueAt(i, 2);
         InputNamaMenu.setText(menu);
         InputNamaMenu.setEnabled(false);
         
-        String harga = (String) tmp.getValueAt(i, 3);
+        String harga = (String) ModelTmp.getValueAt(i, 3);
         InputHargaMenu.setText(harga);
         InputHargaMenu.setEnabled(false);
         
-        String jumlah = (String) tmp.getValueAt(i, 4);
+        String jumlah = (String) ModelTmp.getValueAt(i, 4);
         InputJumlahBeli.setText(jumlah);
         InputJumlahBeli.setEnabled(false);
         
-        String total = (String) tmp.getValueAt(i, 5);
+        String total = (String) ModelTmp.getValueAt(i, 5);
         InputTotalBeli.setText(total);
         InputTotalBeli.setEnabled(false);
 
@@ -708,7 +709,7 @@ private DefaultTableModel tmp;
     // Btn Dellet
     private void BtnDelletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDelletActionPerformed
         // TODO add your handling code here:
-        int res = JOptionPane.showConfirmDialog(null, "Do You want to DELETE MENU?", "DELETE MENU", JOptionPane.YES_NO_OPTION);
+        int res = JOptionPane.showConfirmDialog(null, "Ingin Membatalkan Pesanan?", "DELETE MENU", JOptionPane.YES_NO_OPTION);
         switch (res) {
             case JOptionPane.YES_OPTION:
                 if( InputIdTmp.getText().equals("") ||
@@ -724,7 +725,7 @@ private DefaultTableModel tmp;
                         java.sql.Connection conn=(Connection)Database.getKoneksi();
                         java.sql.PreparedStatement pst=conn.prepareStatement(sql);
                         pst.execute();
-                        JOptionPane.showMessageDialog(null, "berhasil di hapus!", "JonJelly", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Pesanan berhasil di hapus!", "JonJelly", JOptionPane.INFORMATION_MESSAGE);
                         getListMenu();
                         getTmpPesanan();
                         getFaktur();
@@ -833,7 +834,7 @@ private DefaultTableModel tmp;
                 BtnAddToCart.setEnabled(false);
                 BtnCount.setEnabled(false);
                 BtnDellet.setEnabled(false);
-                JOptionPane.showMessageDialog(null, "Data berhasil disimpan", "JONJELLY", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Pesanan Berhasil Ditambahkan", "JONJELLY", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
@@ -846,17 +847,17 @@ private DefaultTableModel tmp;
         if (i == -1) {
             return;
         }
-        String idmenu = (String) model.getValueAt(i, 0);
+        String idmenu = (String) ModelMenu.getValueAt(i, 0);
         InputIdMenu.setText(idmenu);
         InputIdMenu.setEnabled(false);
 
-        String namamenu = (String) model.getValueAt(i, 1);
+        String namamenu = (String) ModelMenu.getValueAt(i, 1);
         InputNamaMenu.setText(namamenu);
         
-        String hargamenu = (String) model.getValueAt(i, 2);
+        String hargamenu = (String) ModelMenu.getValueAt(i, 2);
         InputHargaMenu.setText(hargamenu);
         
-        String stokmenu = (String) model.getValueAt(i, 4);
+        String stokmenu = (String) ModelMenu.getValueAt(i, 4);
         InputStokMenu.setText(stokmenu);
         
         InputJumlahBeli.setEnabled(true);
