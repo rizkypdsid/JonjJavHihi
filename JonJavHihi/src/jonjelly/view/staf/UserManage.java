@@ -23,7 +23,7 @@ import jonjelly.controllers.Staf;
  * @author mrpds
  */
 public class UserManage extends javax.swing.JFrame {
-    private DefaultTableModel model;
+    private DefaultTableModel ModelUser;
     /**
      * Creates new form UserManage
      */
@@ -35,17 +35,17 @@ public class UserManage extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);
         
         //memberi penamaan pada judul kolom TableUser;
-             model = new DefaultTableModel ( );
-             TableUser.setModel(model);
-             model.addColumn("ID");
-             model.addColumn("NAMA");
-             model.addColumn("JABATAN");
-             model.addColumn("USERNAME");
-             model.addColumn("PASSWORD");
-             model.addColumn("EMAIL");
-             model.addColumn("NO TELP");
-             model.addColumn("KELAMIN");
-             model.addColumn("ALAMAT");
+             ModelUser = new DefaultTableModel ( );
+             TableUser.setModel(ModelUser);
+             ModelUser.addColumn("ID");
+             ModelUser.addColumn("NAMA");
+             ModelUser.addColumn("JABATAN");
+             ModelUser.addColumn("USERNAME");
+             ModelUser.addColumn("PASSWORD");
+             ModelUser.addColumn("EMAIL");
+             ModelUser.addColumn("NO TELP");
+             ModelUser.addColumn("KELAMIN");
+             ModelUser.addColumn("ALAMAT");
              getDataUser();
              kode();
     }
@@ -55,20 +55,22 @@ public class UserManage extends javax.swing.JFrame {
        if(Character.isAlphabetic(a.getKeyChar())){
            a.consume();
            JOptionPane.showMessageDialog(null, "HARAP MASUKAN ANGKA SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+           InputNoTelp.setText("");
        }
    }
     public void FilterHuruf(KeyEvent a){
        if(Character.isDigit(a.getKeyChar())){
            a.consume();
            JOptionPane.showMessageDialog(null, "HARAP MASUKAN HURUF SAJA!", "NOTICE VALIDATION", JOptionPane.WARNING_MESSAGE);
+           InputNama.setText("");
        }
    }
 
     // Ambil data user untuk cetak di TableUser
     public void getDataUser( ){
      //menghapus isi table TabelUser
-        model.getDataVector( ).removeAllElements( );
-        model.fireTableDataChanged( );
+        ModelUser.getDataVector( ).removeAllElements( );
+        ModelUser.fireTableDataChanged( );
 
         try{
             Statement stat = (Statement) Database.getKoneksi( ).createStatement( );
@@ -86,7 +88,7 @@ public class UserManage extends javax.swing.JFrame {
                  obj[7] = res.getString("jenis_kelamin");
                  obj[8] = res.getString("alamat");
 
-                 model.addRow(obj);
+                 ModelUser.addRow(obj);
              }
          }catch(SQLException err){
                 System.out.println("Error Load Data User");
@@ -613,14 +615,14 @@ public class UserManage extends javax.swing.JFrame {
         if (i == -1) {
             return;
         }
-        String iduser = (String) model.getValueAt(i, 0);
+        String iduser = (String) ModelUser.getValueAt(i, 0);
         InputIdUser.setText(iduser);
         InputIdUser.setEnabled(false);
 
-        String namauser = (String) model.getValueAt(i, 1);
+        String namauser = (String) ModelUser.getValueAt(i, 1);
         InputNama.setText(namauser);
         
-        String jabatanuser = (String) model.getValueAt(i, 2);
+        String jabatanuser = (String) ModelUser.getValueAt(i, 2);
         String jbt ="Staf";
         if(jabatanuser.equals(jbt)){
             JbtnStaf.setSelected(true);
@@ -628,19 +630,19 @@ public class UserManage extends javax.swing.JFrame {
             JbtnKaryawan.setSelected(true);
         }
         
-        String usernameuser = (String) model.getValueAt(i, 3);
+        String usernameuser = (String) ModelUser.getValueAt(i, 3);
         InputUsername.setText(usernameuser);
         
-        String passworduser = (String) model.getValueAt(i, 4);
+        String passworduser = (String) ModelUser.getValueAt(i, 4);
         InputPassword.setText(passworduser);
         
-        String emailuser = (String) model.getValueAt(i, 5);
+        String emailuser = (String) ModelUser.getValueAt(i, 5);
         InputEmail.setText(emailuser);
         
-        String notelpuser = (String) model.getValueAt(i, 6);
+        String notelpuser = (String) ModelUser.getValueAt(i, 6);
         InputNoTelp.setText(notelpuser);
         
-        String jeniskelaminuser = (String) model.getValueAt(i, 7);
+        String jeniskelaminuser = (String) ModelUser.getValueAt(i, 7);
         String jk ="Laki-Laki";
         if(jeniskelaminuser.equals(jk)){
             JkLaki.setSelected(true);
@@ -648,7 +650,7 @@ public class UserManage extends javax.swing.JFrame {
             JkPerempuan.setSelected(true);
         }
         
-        String alamatuser = (String) model.getValueAt(i, 8);
+        String alamatuser = (String) ModelUser.getValueAt(i, 8);
         InputAlamat.setText(alamatuser);
     }//GEN-LAST:event_TableUserMouseClicked
 
@@ -661,8 +663,8 @@ public class UserManage extends javax.swing.JFrame {
     // TextField Search User
     private void InputSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputSearchKeyReleased
         // TODO add your handling code here:
-        model.getDataVector().removeAllElements();
-        model.fireTableDataChanged();
+        ModelUser.getDataVector().removeAllElements();
+        ModelUser.fireTableDataChanged();
 
         try {
             Connection c = Database.getKoneksi();
@@ -687,7 +689,7 @@ public class UserManage extends javax.swing.JFrame {
                 CariUser[6] = r.getString("no_telp");
                 CariUser[7] = r.getString("jenis_kelamin");
                 CariUser[8] = r.getString("alamat");
-                model.addRow(CariUser);
+                ModelUser.addRow(CariUser);
             }
             r.close();
             s.close();
@@ -796,7 +798,7 @@ public class UserManage extends javax.swing.JFrame {
             if (i == -1) {
                 return;
             }
-            String iduser = (String) model.getValueAt(i, 0);
+            String iduser = (String) ModelUser.getValueAt(i, 0);
             InputIdUser.setText(iduser);
             try {
                 String jabatanuser ="";
