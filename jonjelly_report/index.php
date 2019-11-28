@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JONJELLY</title>
     <link rel="icon" href="img/icon-png.png">
-    <link rel="stylesheet" href="style/css/Indexstyle.css">
+    <link rel="stylesheet" href="style/css/style.css">
     <link rel="stylesheet" href="style/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="style/vendor/fontawesome/css/fontawesome.css">
     <link rel="stylesheet" href="style/vendor/fontawesome/css/all.min.css">
@@ -27,9 +27,12 @@
             </div>
             <div class="row">
                 <div class="col mx-auto text-center">
-                        <a href="CustomerList.php" class="btn  btn-primary btn-lg CsContent" title="Customer List"><i class="fas fa-users"></i> </a>
-                        <a href="ReportMenu.php" class="btn  btn-danger btn-lg RmpContent" title="Report Menu To PDF/PRINT"><i class="fas fa-file-pdf"></i> </a>
-                        <a href="ReportMenuExcel.php" class="btn  btn-success btn-lg RmeContent text-white" title="Export Menu To Excel"><i class="fas fa-file-excel"></i> </a>
+                        <a href="CustomerList.php" class="btn  btn-primary btn-lg CustomerList" title="Customer List"></a>
+                        <div class="col mt-2 col-12">
+                            <a href="Report.php" class="btn  btn-danger text-white PrintListIndex" title="Print Report Menu"></a>
+                            <a href="ReportExcel.php" class="btn  btn-success text-white ExportListIndex" title="Download Report Menu"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
