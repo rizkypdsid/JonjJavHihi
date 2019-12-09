@@ -4,7 +4,7 @@ Software management Cashier JonJelly
 [![JonJelly](https://i.ibb.co/GnSZwkp/icon.png)](https://github.com/rizkypdsid/JonJelly_app)
 
 
-### Release version : 1.5
+### Release version : 2.0
   ```
   Cashier Software management, Desktop Version
   ```
