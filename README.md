@@ -1,7 +1,7 @@
-# [JonjJavHihi](https://github.com/rizkypdsid/JonJelly_app/)
+# [JonjJavHihi](https://github.com/rizkypdsid/JonjJavHihi/)
 Software management Cashier JonJelly
 
-[![JonJelly](https://i.ibb.co/GnSZwkp/icon.png)](https://github.com/rizkypdsid/JonJelly_app)
+[![JonJelly](https://i.ibb.co/GnSZwkp/icon.png)](https://github.com/rizkypdsid/JonjJavHihi)
 
 
 ### Release version : 2.0
